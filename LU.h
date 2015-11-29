@@ -1,2 +1,1 @@
-
-void luDecom(int n,  int A[][n], int f[n], int u[n]);
+void luDecom(int n,  double A[][n], double f[n], double u[n]);

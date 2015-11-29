@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include "LU.h"
 
-void luDecom(int n,  int A[][n], int f[n], int u[n]) {
-	int L[n][n];
-	int y[n];
-	int sum;
+void luDecom(int n,  double A[][n], double f[n], double u[n]) {
+	double L[n][n];
+	double y[n];
+	double sum;
 
 	//Factorization step
 	for (int k = 0; k < n - 1; k++) {
@@ -42,7 +43,7 @@ void luDecom(int n,  int A[][n], int f[n], int u[n]) {
 	}
 	
 }
-
+/*
 int main(int argc, char const *argv[])
 {
 	int A[][2] = {{1,0}, {0,1}};
@@ -52,8 +53,7 @@ int main(int argc, char const *argv[])
 	luDecom(size,A,f,res);
 	return 0;
 }
-
-
+*/
 
 
 
