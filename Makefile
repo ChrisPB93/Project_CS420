@@ -1,9 +1,9 @@
 target = main.exe
 dependencies = testcase.h LU.h
-objects = main.o testcase.o LU.o
+objects = testcase.o LU.o
 
 cc = gcc
-cFlags = -Wall -Werror -Wextra -std=gnu99
+cFlags = -std=gnu99
 
 all: $(target)
 
