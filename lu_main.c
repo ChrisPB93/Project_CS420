@@ -4,10 +4,10 @@
 #include "LU.h"
 #include "testcase.h"
 
-int main()
+int main(int argc, char const *argv[])
 {
 	// Specify size
-	int n = 3;
+	int n = atoi(argv[1]);
 	int N = n + 1;
 	double h = 1.0 / N;
 
