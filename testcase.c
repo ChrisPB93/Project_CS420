@@ -79,7 +79,7 @@ void createMatrix(int n, double h, double (*A)[n * n])
 	for (i = 0; i < n * n; i++) {
 		for (j = 0; j < n * n; j++) {
 			A[i][j] = 0;
-			A[i][i] = 4;
+			A[i][i] = 4 + 10 * pow(h, 2);
 		}
 	}
 
@@ -119,12 +119,13 @@ void createRHS(int n, double h, double *f, double (*X)[n], double (*Y)[n])
 
 			f[i * n + j] = forcingTerm(x, y);
 
-			if (y == h) {
-			 	f[i * n + j] += 1 / pow(h, 2) * y * sin(y);
+			if (x == n * h) {
+			  	f[i * n + j] += 1 / pow(h, 2) * y * sin(y);
 			}
 
-			if (x == n * h) {
-				f[i * n + j] += 1 / pow(h, 2) * sin(x);
+			// Boundary condition on 
+			if (y == n * h) {
+			 	f[i * n + j] += 1 / pow(h, 2) * sin(x);
 			}
 		}
 	}

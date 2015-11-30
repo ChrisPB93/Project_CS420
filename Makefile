@@ -1,4 +1,4 @@
-target = main.exe
+target = lu_main.exe
 dependencies = testcase.h LU.h
 objects = testcase.o LU.o
 
