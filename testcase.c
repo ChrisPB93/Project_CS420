@@ -148,6 +148,6 @@ void printVector(int n, double *V)
 	int i;
 
 	for (i = 0; i < n; i++) {
-		printf("%2.2f\n", V[i]);
+		printf("%2.4f\n", V[i]);
 	}
 }

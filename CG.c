@@ -6,10 +6,8 @@
 #include "testcase.h"
 
 
-void conjGrad(int n,  double A[][n], double f[n], double x[n]) {
+void conjGrad(int n,  double A[][n], double f[n], double x[n], int maxIterations, double tolerance) {
 	int k;
-	double tolerance = 1e-4;
-	int maxIterations = 1000;
 	double *r;
 	double *s;
 	double *p;
@@ -26,11 +24,13 @@ void conjGrad(int n,  double A[][n], double f[n], double x[n]) {
 	k = 0;
 	memset(x,0,nbytes);
 	memcpy(r,f,nbytes);
+	memcpy(s,f,nbytes);
 	
 
 
 	while(dotProduct(n,r,r) > tolerance && k < maxIterations) {
 		k++;
+		printf("k=%d\n", k);
 		if(k == 1) {
 			memcpy(p,r,nbytes);
 		} else {
@@ -38,6 +38,7 @@ void conjGrad(int n,  double A[][n], double f[n], double x[n]) {
 			vectorAdd(n, beta, r, p, p);
 		}
 		memcpy(rPrev, r, nbytes);
+		memset(s,0, nbytes);
 		matrixVectorMult(n, A, p, s);
 		alpha = dotProduct(n, r, r) / dotProduct(n, p, s);
 		vectorAdd(n, alpha, x, p, x);	
@@ -66,7 +67,7 @@ void matrixVectorMult(int n, double M[n][n], double V[n], double R[n])
 
 	for (i = 0; i < n; i++) {
 		for (j = 0; j < n; j++) {
-			R[i] += M[i][j] * V[i];
+			R[i] += M[i][j] * V[j];
 		}
 	}
 }

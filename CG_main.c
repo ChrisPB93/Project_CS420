@@ -9,6 +9,8 @@ int main(int argc, char const *argv[])
 {
 	// Specify size
 	int n = atoi(argv[1]);
+	int maxIterations = atoi(argv[2]);
+	double tolerance = atof(argv[3]);
 	int N = n + 1;
 	double h = 1.0 / N;
 
@@ -25,7 +27,7 @@ int main(int argc, char const *argv[])
 	createRHS(n, h, f, X, Y);
 
 	//Solve equations by LU-decomposition
-	conjGrad(n * n, A, f, x);
+	conjGrad(n * n, A, f, x, maxIterations,tolerance);
 
 	// Display the test case
 	printf("X = \n");
