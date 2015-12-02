@@ -7,25 +7,36 @@
 
 
 void conjGrad(int n,  double A[][n], double f[n], double x[n], int maxIterations, double tolerance) {
-	int k;
+	int k, n_local;
 	double *r;
 	double *s;
 	double *p;
+	double *x_local;
+	double A_local[][n];
 	double alpha, beta;
-	double rDot, rPrevDot;
+	double rDot, rDot_local, psDot, psDot_local, rPrevDot;
+	int nbytes;
+	int recvcount;
 
-	int nbytes = n*sizeof(double);
+	MPI_Init(&argc, &argv);
+  MPI_Comm_size(MPI_COMM_WORLD, &procs);
+  MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+  n_local = n/procs;
+
+	nbytes = n_local*sizeof(double);
 
 	s = (double *)malloc(nbytes);
 	r = (double *)malloc(nbytes);
 	p = (double *)malloc(nbytes);
 
 	k = 0;
-	memset(x,0,nbytes);
-	memcpy(r,f,nbytes);
-	memcpy(s,f,nbytes);
+	memset(x_local,0,nbytes);
+	MPI_Scatter(&f, n_local, MPI_DOUBLE, &r, n_local, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+	//memcpy(r,f,nbytes);
+	//memcpy(s,r,nbytes); CHECK THIS!?!?
 	
-	rDot = dotProduct(n,r,r);
+	rDot_local = dotProduct(n,r,r);
+	MPI_Allreduce(&rDot_local, &rDot, 1, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
 	while(rDot > tolerance && k < maxIterations) {
 		k++;
 		if(k == 1) {
@@ -36,16 +47,22 @@ void conjGrad(int n,  double A[][n], double f[n], double x[n], int maxIterations
 		}
 		rPrevDot = rDot;
 		memset(s,0, nbytes);
-		matrixVectorMult(n, A, p, s);
-		alpha = rDot / dotProduct(n, p, s); //dotp
-		vectorAdd(n, alpha, x, p, x);	
+		matrixVectorMult(n, A, p, s); //REWRITE!!!!
+		psDot_local = dotProduct(n, p, s);
+		MPI_Allreduce(&psDot_local, &psDot, 1, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
+		alpha = rDot / psDdot; //dotp
+		vectorAdd(n, alpha, x_local, p, x_local);	
 		vectorAdd(n, -alpha, r, s, r);
-		rDot = dotProduct(n,r,r);
+		rDot_local = dotProduct(n,r,r);
+		MPI_Allreduce(&rDot_local, &rDot, 1, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
 	}
+	MPI_Allgatherv(&x_local, n_local, MPI_DOUBLE, &x, &recvcount, MPI_DOUBLE, MPI_COMM_WORLD);
+	//gatherv to get vector
 
 	free(r);
 	free(s);
 	free(p);
+	MPI_Finalize();
 }
 
 // Functions
