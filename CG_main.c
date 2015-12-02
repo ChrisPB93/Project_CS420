@@ -30,14 +30,14 @@ int main(int argc, char const *argv[])
 	conjGrad(n * n, A, f, x, maxIterations,tolerance);
 
 	// Display the test case
-	printf("X = \n");
-	printMatrix(n, X);
-	printf("Y = \n");
-	printMatrix(n, Y);
-	printf("A = \n");
-	printMatrix(n * n, A);
-	printf("f = \n");
-	printVector(n * n, f);
+	// printf("X = \n");
+	// printMatrix(n, X);
+	// printf("Y = \n");
+	// printMatrix(n, Y);
+	// printf("A = \n");
+	// printMatrix(n * n, A);
+	// printf("f = \n");
+	// printVector(n * n, f);
 	printf("x = \n");
 	printVector(n * n, x);
 

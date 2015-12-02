@@ -11,14 +11,13 @@ void conjGrad(int n,  double A[][n], double f[n], double x[n], int maxIterations
 	double *r;
 	double *s;
 	double *p;
-	double *rPrev;
 	double alpha, beta;
+	double rDot, rPrevDot;
 
 	int nbytes = n*sizeof(double);
 
 	s = (double *)malloc(nbytes);
 	r = (double *)malloc(nbytes);
-	rPrev = (double *)malloc(nbytes);
 	p = (double *)malloc(nbytes);
 
 	k = 0;
@@ -26,31 +25,31 @@ void conjGrad(int n,  double A[][n], double f[n], double x[n], int maxIterations
 	memcpy(r,f,nbytes);
 	memcpy(s,f,nbytes);
 	
-
-
-	while(dotProduct(n,r,r) > tolerance && k < maxIterations) {
+	//DOTPRODUCT ONLY CALCULATED ONCE!!!!
+	rDot = dotProduct(n,r,r);
+	while(rDot > tolerance && k < maxIterations) {
 		k++;
-		printf("k=%d\n", k);
 		if(k == 1) {
 			memcpy(p,r,nbytes);
 		} else {
-			beta = dotProduct(n, r, r) / dotProduct(n, rPrev, rPrev);
+			beta = rDot / rPrevDot; //reuse from last iteration
 			vectorAdd(n, beta, r, p, p);
 		}
-		memcpy(rPrev, r, nbytes);
+		rPrevDot = rDot;
 		memset(s,0, nbytes);
 		matrixVectorMult(n, A, p, s);
-		alpha = dotProduct(n, r, r) / dotProduct(n, p, s);
+		alpha = rDot / dotProduct(n, p, s); //dotp
 		vectorAdd(n, alpha, x, p, x);	
 		vectorAdd(n, -alpha, r, s, r);
+		rDot = dotProduct(n,r,r);
 	}
 
 	free(r);
 	free(s);
 	free(p);
-	free(rPrev);
 }
 
+// Functions
 double dotProduct(int n,double* a, double* b) {
 	double res = 0;
 	for(int i = 0; i < n; i++) {
@@ -58,8 +57,6 @@ double dotProduct(int n,double* a, double* b) {
 	}
 	return res;
 }
-
-// Functions
 
 void matrixVectorMult(int n, double M[n][n], double V[n], double R[n])
 {
