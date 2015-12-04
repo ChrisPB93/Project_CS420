@@ -2,8 +2,18 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
+#include <sys/time.h>
+#include <omp.h>
 #include "CG.h"
 #include "testcase.h"
+
+struct timeval tv;
+double get_clock() {
+   struct timeval tv; int ok;
+   ok = gettimeofday(&tv, (void *) 0);
+   if (ok<0) { printf("gettimeofday error");  }
+   return (tv.tv_sec * 1.0 + tv.tv_usec * 1.0E-6);
+}
 
 
 void conjGrad(int n,  double A[][n], double f[n], double x[n], int maxIterations, double tolerance) {
@@ -12,7 +22,7 @@ void conjGrad(int n,  double A[][n], double f[n], double x[n], int maxIterations
 	double *s;
 	double *p;
 	double alpha, beta;
-	double rDot, rPrevDot;
+	double rDot, rPrevDot, tstart, tend, ttotal;
 
 	int nbytes = n*sizeof(double);
 
@@ -25,6 +35,7 @@ void conjGrad(int n,  double A[][n], double f[n], double x[n], int maxIterations
 	memcpy(r,f,nbytes);
 	memcpy(s,f,nbytes);
 	
+	tstart = get_clock();
 	rDot = dotProduct(n,r,r);
 	while(rDot > tolerance && k < maxIterations) {
 		k++;
@@ -42,6 +53,9 @@ void conjGrad(int n,  double A[][n], double f[n], double x[n], int maxIterations
 		vectorAdd(n, -alpha, r, s, r);
 		rDot = dotProduct(n,r,r);
 	}
+	tend = get_clock();
+	ttotal = tend-tstart;
+	printf("Time spent: %12.8lf\n",ttotal);
 
 	free(r);
 	free(s);

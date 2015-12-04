@@ -1,0 +1,52 @@
+#!/bin/bash
+#PBS -l walltime=00:20:00
+#PBS -l nodes=4:ppn=12
+#PBS -N final_project
+#PBS -q cs
+#PBS -j oe
+
+# Load MPI module (Enable MPI in user environment) 
+module load mvapich2/2.1rc1-intel-15.0
+
+# Change to the directory from which the batch job was submitted
+cd $PBS_O_WORKDIR
+
+# Create a temporary hostfile to run a sinlge mpi task per node
+uniq ${PBS_NODEFILE} > /tmp/${USER}_NODEFILE
+
+iter=100
+tol=1e-06
+size=32
+
+echo "======================Conjugate gradient start=============================" >> CG_out.txt
+echo "Running CG_seq.exe" >> out_CG.txt
+./CG_seq.exe ${size} ${iter} ${tol} >> out_CG.txt
+
+for nodes in 1 2 3 4
+do
+for cores in 1 2 4 8 12 16 24
+do
+    echo "Running CG_parallel.exe on $nodes nodes with $cores threads each" >> out_CG.txt
+    export OMP_NUM_THREADS=$cores
+    mpirun -np $nodes -hostfile /tmp/${USER}_NODEFILE ./CG_parallel.exe ${size} ${iter} ${tol} $cores >> out_CG.txt
+done
+done
+
+echo ""
+echo "Running different configurations for 32 processes" >> out_CG.txt
+echo "Running CG_parallel.exe with 4 ranks X 8 threads" >> out_CG.txt
+export OMP_NUM_THREADS=8
+mpirun -np 4 -hostfile /tmp/${USER}_NODEFILE ./CG_parallel.exe ${size} ${iter} ${tol} 8 >> out_CG.txt
+
+echo "Running CG_parallel.exe with 8 ranks X 4 threads" >> out_CG.txt
+export OMP_NUM_THREADS=4
+mpirun -np 8 -hostfile /tmp/${USER}_NODEFILE ./CG_parallel.exe ${size} ${iter} ${tol} 4 >> out_CG.txt
+
+echo "Running CG_parallel.exe with 16 ranks X 2 threads" >> out_CG.txt
+export OMP_NUM_THREADS=2
+mpirun -np 16 -hostfile /tmp/${USER}_NODEFILE ./CG_parallel.exe ${size} ${iter} ${tol} 2 >> out_CG.txt
+
+echo "Running CG_parallel.exe with 32 ranks X 1 threads" >> out_CG.txt
+export OMP_NUM_THREADS=1
+mpirun -np 32 -hostfile /tmp/${USER}_NODEFILE ./CG_parallel.exe ${size} ${iter} ${tol} 1 >> out_CG.txt
+echo "======================Conjugate gradient finished=============================" >> out_CG.txt

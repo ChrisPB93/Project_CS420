@@ -37,8 +37,8 @@ int main(int argc, char const *argv[])
 	// printMatrix(n * n, A);
 	// printf("f = \n");
 	// printVector(n * n, f);
-	printf("x = \n");
-	printVector(n * n, x);
+	// printf("x = \n");
+	// printVector(n * n, x);
 
 	// Free memory
 	free(A);

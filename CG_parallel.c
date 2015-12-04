@@ -46,10 +46,10 @@ void conjGrad(int n,  double A[][n], double f[n], double x[n], int maxIterations
 	MPI_Scatter(f, m, MPI_DOUBLE, r, m, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 	MPI_Scatter(A, n*m, MPI_DOUBLE, A_local, n*m, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 	
+	tstart = get_clock();
 	rDot_local = dotProduct(m,r,r);
 	MPI_Allreduce(&rDot_local, &rDot, 1, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
 
-	tstart = get_clock();
 	while(rDot > tolerance && k < maxIterations) {
 		k++;
 		if(k == 1) {
@@ -71,13 +71,12 @@ void conjGrad(int n,  double A[][n], double f[n], double x[n], int maxIterations
 		MPI_Allreduce(&rDot_local, &rDot, 1, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
 	}
 	MPI_Allgather(x_local, m, MPI_DOUBLE, x, m, MPI_DOUBLE, MPI_COMM_WORLD);
-	//gatherv to get vector
 	tend = get_clock();
 	ttotal = tend-tstart;
 
 	if(rank == 0) {
-		printf("x = \n");
-		printVector(n, x);
+		// printf("x = \n");
+		// printVector(n, x);
 		printf("Time spent: %12.8lf\n",ttotal);
 	}
 	free(r);
