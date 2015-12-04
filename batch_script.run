@@ -14,17 +14,17 @@ cd $PBS_O_WORKDIR
 # Create a temporary hostfile to run a sinlge mpi task per node
 uniq ${PBS_NODEFILE} > /tmp/${USER}_NODEFILE
 
-iter=100
+iter=1000
 tol=1e-06
 size=32
 
-echo "======================Conjugate gradient start=============================" >> CG_out.txt
+echo "======================Conjugate gradient start=============================" >> out_CG.txt
 echo "Running CG_seq.exe" >> out_CG.txt
 ./CG_seq.exe ${size} ${iter} ${tol} >> out_CG.txt
 
-for nodes in 1 2 3 4
+for nodes in 1 2 4 8
 do
-for cores in 1 2 4 8 12 16 24
+for cores in 1 2 4 8 16 32 64
 do
     echo "Running CG_parallel.exe on $nodes nodes with $cores threads each" >> out_CG.txt
     export OMP_NUM_THREADS=$cores

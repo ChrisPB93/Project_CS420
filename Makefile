@@ -15,4 +15,4 @@ CG_parallel.exe: testcase.c CG_parallel.c CG_parallel_main.c
 	$(CC) $(CCFLAGS) $? -lm -o $@
 
 clean:
-	rm -f *.o $(TARGETS) out_mp4.txt
+	rm -f *.o $(TARGETS) out_CG.txt
