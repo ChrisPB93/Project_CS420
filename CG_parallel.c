@@ -3,10 +3,18 @@
 #include <math.h>
 #include <string.h>
 #include <mpi.h>
+#include <sys/time.h>
 #include <omp.h>
 #include "CG_parallel.h"
 #include "testcase.h"
 
+struct timeval tv;
+double get_clock() {
+   struct timeval tv; int ok;
+   ok = gettimeofday(&tv, (void *) 0);
+   if (ok<0) { printf("gettimeofday error");  }
+   return (tv.tv_sec * 1.0 + tv.tv_usec * 1.0E-6);
+}
 
 void conjGrad(int n,  double A[][n], double f[n], double x[n], int maxIterations, double tolerance, int numThreads, int argc, char **argv) {
 	int k, m, procs, rank;
@@ -16,7 +24,7 @@ void conjGrad(int n,  double A[][n], double f[n], double x[n], int maxIterations
 	double *p_gather;
 	double *x_local;
 	double alpha, beta;
-	double rDot, rDot_local, psDot, psDot_local, rPrevDot;
+	double rDot, rDot_local, psDot, psDot_local, rPrevDot, tstart, tend, ttotal;
 	int mbytes;
 
 	omp_set_num_threads(numThreads);
@@ -40,6 +48,8 @@ void conjGrad(int n,  double A[][n], double f[n], double x[n], int maxIterations
 	
 	rDot_local = dotProduct(m,r,r);
 	MPI_Allreduce(&rDot_local, &rDot, 1, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
+
+	tstart = get_clock();
 	while(rDot > tolerance && k < maxIterations) {
 		k++;
 		if(k == 1) {
@@ -62,10 +72,13 @@ void conjGrad(int n,  double A[][n], double f[n], double x[n], int maxIterations
 	}
 	MPI_Allgather(x_local, m, MPI_DOUBLE, x, m, MPI_DOUBLE, MPI_COMM_WORLD);
 	//gatherv to get vector
+	tend = get_clock();
+	ttotal = tend-tstart;
 
 	if(rank == 0) {
 		printf("x = \n");
 		printVector(n, x);
+		printf("Time spent: %12.8lf\n",ttotal);
 	}
 	free(r);
 	free(s);
@@ -77,7 +90,7 @@ void conjGrad(int n,  double A[][n], double f[n], double x[n], int maxIterations
 double dotProduct(int n,double* a, double* b) {
 	int i;
 	double res = 0;
-	// #pragma omp parallel for
+	#pragma omp parallel for reduction(+:res)
 	for(i = 0; i < n; i++) {
 		res += a[i] * b[i];
 	}
@@ -87,7 +100,7 @@ double dotProduct(int n,double* a, double* b) {
 void matrixVectorMult(int m, int n, double M[m][n], double V[n], double R[n])
 {
 	int i, j;
-	// #pragma omp parallel for
+	#pragma omp parallel for private(j)
 	for (i = 0; i < m; i++) {
 		for (j = 0; j < n; j++) {
 			R[i] += M[i][j] * V[j];
@@ -99,7 +112,7 @@ void vectorAdd(int n, double S, double V1[n], double V2[n], double R[n])
 {
 	int i;
 
-	// #pragma omp parallel for
+	#pragma omp parallel for
 	for (i = 0; i < n; i++)
 	{
 		R[i] = V1[i] + S * V2[i];

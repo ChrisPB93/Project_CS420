@@ -51,7 +51,8 @@ void conjGrad(int n,  double A[][n], double f[n], double x[n], int maxIterations
 // Functions
 double dotProduct(int n,double* a, double* b) {
 	double res = 0;
-	for(int i = 0; i < n; i++) {
+	int i;
+	for(i = 0; i < n; i++) {
 		res += a[i] * b[i];
 	}
 	return res;	

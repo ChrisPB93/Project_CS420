@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <omp.h>
+#include </usr/local/Cellar/open-mpi/1.10.1/share/vampirtrace/omp.h>
 #include <mpi.h>
+#include <sys/time.h>
 #include "testcase.h"
 #include "CG_parallel.h"
 

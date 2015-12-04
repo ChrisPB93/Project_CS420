@@ -1,17 +1,18 @@
-target = lu_main.exe
-dependencies = testcase.h LU.h
-objects = testcase.o LU.o
+SHELL=/bin/bash
 
-cc = gcc
-cFlags = -std=gnu99
+CC=mpiicc
+CCFLAGS = -O0 -g -openmp 
 
-all: $(target)
+#SRC=
+TARGETS=$(SRC:.c=.exe)
 
-%.o: %.c $(dependencies)
-	$(cc) $(cFlags) -c -o $@ $<
+all: $(TARGETS)
 
-$(target): $(objects)
-	$(cc) $(cFlags) -o $(target).o $^
+CG_seq.exe: testcase.c CG.c CG_main.c
+	$(CC) $(CCFLAGS) $? -lm -o $@
+
+CG_parallel.exe: testcase.c CG_parallel.c CG_parallel_main.c 
+	$(CC) $(CCFLAGS) $? -lm -o $@
 
 clean:
-	rm -f *.exe *.obj *.o
+	rm -f *.o $(TARGETS) out_mp4.txt
