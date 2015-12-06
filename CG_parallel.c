@@ -75,13 +75,13 @@ void conjGrad(int n,  double A[][n], double f[n], double x[n], int maxIterations
 	ttotal = tend-tstart;
 
 	if(rank == 0) {
-		// printf("x = \n");
-		// printVector(n, x);
 		printf("Time spent: %12.8lf\n",ttotal);
 	}
 	free(r);
 	free(s);
 	free(p);
+	free(x_local);
+	free(p_gather);
 	MPI_Finalize();
 }
 
