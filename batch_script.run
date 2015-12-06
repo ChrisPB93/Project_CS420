@@ -1,6 +1,6 @@
 #!/bin/bash
 #PBS -l walltime=00:20:00
-#PBS -l nodes=4:ppn=12
+#PBS -l nodes=8:ppn=12
 #PBS -N final_project
 #PBS -q cs
 #PBS -j oe
@@ -24,7 +24,7 @@ echo "Running CG_seq.exe" >> out_CG.txt
 
 for nodes in 1 2 4 8
 do
-for cores in 1 2 4 8 16 32 64
+for cores in 1 2 4 8 16 24
 do
     echo "Running CG_parallel.exe on $nodes nodes with $cores threads each" >> out_CG.txt
     export OMP_NUM_THREADS=$cores
