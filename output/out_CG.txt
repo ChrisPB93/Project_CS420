@@ -1,0 +1,69 @@
+======================Conjugate gradient start=============================
+Running CG_seq.exe
+Time spent:   0.28375793
+Running CG_parallel.exe on 1 nodes with 1 threads each
+Time spent:   0.28517413
+Running CG_parallel.exe on 1 nodes with 2 threads each
+Time spent:   0.14488220
+Running CG_parallel.exe on 1 nodes with 4 threads each
+Time spent:   0.08081317
+Running CG_parallel.exe on 1 nodes with 8 threads each
+Time spent:   0.05444121
+Running CG_parallel.exe on 1 nodes with 16 threads each
+Time spent:   0.08625102
+Running CG_parallel.exe on 1 nodes with 32 threads each
+Time spent:   0.08852386
+Running CG_parallel.exe on 1 nodes with 64 threads each
+Time spent:   0.10315800
+Running CG_parallel.exe on 2 nodes with 1 threads each
+Time spent:   0.14387703
+Running CG_parallel.exe on 2 nodes with 2 threads each
+Time spent:   0.07558513
+Running CG_parallel.exe on 2 nodes with 4 threads each
+Time spent:   0.04214001
+Running CG_parallel.exe on 2 nodes with 8 threads each
+Time spent:   0.03642607
+Running CG_parallel.exe on 2 nodes with 16 threads each
+Time spent:   0.05856991
+Running CG_parallel.exe on 2 nodes with 32 threads each
+Time spent:   0.06590009
+Running CG_parallel.exe on 2 nodes with 64 threads each
+Time spent:   0.07845402
+Running CG_parallel.exe on 4 nodes with 1 threads each
+Time spent:   0.07520986
+Running CG_parallel.exe on 4 nodes with 2 threads each
+Time spent:   0.04011703
+Running CG_parallel.exe on 4 nodes with 4 threads each
+Time spent:   0.02334285
+Running CG_parallel.exe on 4 nodes with 8 threads each
+Time spent:   0.07274199
+Running CG_parallel.exe on 4 nodes with 16 threads each
+Time spent:   0.04067087
+Running CG_parallel.exe on 4 nodes with 32 threads each
+Time spent:   0.05830622
+Running CG_parallel.exe on 4 nodes with 64 threads each
+Time spent:   0.09566998
+Running CG_parallel.exe on 8 nodes with 1 threads each
+Time spent:   0.05443406
+Running CG_parallel.exe on 8 nodes with 2 threads each
+Time spent:   0.02950811
+Running CG_parallel.exe on 8 nodes with 4 threads each
+Time spent:   0.01761913
+Running CG_parallel.exe on 8 nodes with 8 threads each
+Time spent:   0.23397994
+Running CG_parallel.exe on 8 nodes with 16 threads each
+Time spent:   0.80988789
+Running CG_parallel.exe on 8 nodes with 32 threads each
+Time spent:   0.09043503
+Running CG_parallel.exe on 8 nodes with 64 threads each
+Time spent:   0.20023894
+Running different configurations for 32 processes
+Running CG_parallel.exe with 4 ranks X 8 threads
+Time spent:   0.01939797
+Running CG_parallel.exe with 8 ranks X 4 threads
+Time spent:   0.01658487
+Running CG_parallel.exe with 16 ranks X 2 threads
+Time spent:   0.01696205
+Running CG_parallel.exe with 32 ranks X 1 threads
+Time spent:   0.14356208
+======================Conjugate gradient finished=============================
