@@ -1,6 +1,6 @@
 SHELL=/bin/bash
 
-CC=mpiicc
+CC=mpicc
 CCFLAGS = -O0 -g -openmp 
 
 #SRC=

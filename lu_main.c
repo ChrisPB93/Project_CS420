@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
 #include "LU.h"
 #include "testcase.h"
 
@@ -24,17 +25,9 @@ int main(int argc, char const *argv[])
 	createRHS(n, h, f, X, Y);
 
 	//Solve equations by LU-decomposition
-	luDecom(n * n, A, f, x);
+	LUSequential(n * n, A, f, x);
 
-	// Display the test case
-	printf("X = \n");
-	printMatrix(n, X);
-	printf("Y = \n");
-	printMatrix(n, Y);
-	printf("A = \n");
-	printMatrix(n * n, A);
-	printf("f = \n");
-	printVector(n * n, f);
+	// Display the result
 	printf("x = \n");
 	printVector(n * n, x);
 

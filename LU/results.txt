@@ -1,0 +1,70 @@
+=========== Start of sequential LU decomposition ==========
+
+Running sequentialLU.exe for size 32
+Time = 2.574443102
+
+=========== End of sequential LU decomposition ============
+
+=========== Start of parallel LU decomposition ============
+
+Running parallelLU.exe for size 32 on 1 nodes and 1 cores
+Time = 5.088191986
+
+Running parallelLU.exe for size 32 on 1 nodes and 2 cores
+Time = 2.295391083
+
+Running parallelLU.exe for size 32 on 1 nodes and 4 cores
+Time = 1.521884203
+
+Running parallelLU.exe for size 32 on 1 nodes and 8 cores
+Time = 0.705828905
+
+Running parallelLU.exe for size 32 on 1 nodes and 16 cores
+Time = 0.882173061
+
+Running parallelLU.exe for size 32 on 1 nodes and 24 cores
+Time = 1.314679146
+
+Running parallelLU.exe for size 32 on 2 nodes and 1 cores
+Time = 3.017037868
+
+Running parallelLU.exe for size 32 on 2 nodes and 2 cores
+Time = 1.715708971
+
+Running parallelLU.exe for size 32 on 2 nodes and 4 cores
+Time = 0.984136820
+
+Running parallelLU.exe for size 32 on 2 nodes and 8 cores
+Time = 1.139550924
+
+Running parallelLU.exe for size 32 on 2 nodes and 16 cores
+Time = 45.437695980
+
+Running parallelLU.exe for size 32 on 2 nodes and 24 cores
+
+Running parallelLU.exe for size 32 on 4 nodes and 1 cores
+
+Running parallelLU.exe for size 32 on 4 nodes and 2 cores
+
+Running parallelLU.exe for size 32 on 4 nodes and 4 cores
+
+Running parallelLU.exe for size 32 on 4 nodes and 8 cores
+
+Running parallelLU.exe for size 32 on 4 nodes and 16 cores
+
+Running parallelLU.exe for size 32 on 4 nodes and 24 cores
+
+Running parallelLU.exe for size 32 on 8 nodes and 1 cores
+
+Running parallelLU.exe for size 32 on 8 nodes and 2 cores
+
+Running parallelLU.exe for size 32 on 8 nodes and 4 cores
+
+Running parallelLU.exe for size 32 on 8 nodes and 8 cores
+
+Running parallelLU.exe for size 32 on 8 nodes and 16 cores
+
+Running parallelLU.exe for size 32 on 8 nodes and 24 cores
+8 total processes killed (some possibly by mpirun during cleanup)
+
+=========== End of parallel LU decomposition ==============

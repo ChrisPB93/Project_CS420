@@ -1,14 +1,14 @@
 close all
 clear all
-cgParallel = importdata('out_CG_parallel2.txt',' ',1);
-timeseq = 0.28370690;
+cgParallel = importdata('out_CG_parallel.txt',' ',1);
+timeseq = 0.16294694;
 
 %%
 figure;
 hold on
-plot([0 cgParallel.data(1:7,2)'],[timeseq cgParallel.data(1:7,3)'],'x-');
-plot([0 cgParallel.data(8:14,2)'],[timeseq cgParallel.data(8:14,3)'],'x-');
-plot([0 cgParallel.data(15:21,2)'],[timeseq cgParallel.data(15:21,3)'],'x-');
+plot([0 cgParallel.data(1:6,2)'],[timeseq cgParallel.data(1:6,3)'],'x-');
+plot([0 cgParallel.data(7:12,2)'],[timeseq cgParallel.data(7:12,3)'],'x-');
+plot([0 cgParallel.data(13:18,2)'],[timeseq cgParallel.data(13:18,3)'],'x-');
 %plot([0 cgParallel.data(22:28,2)'],[timeseq cgParallel.data(22:28,3)'],'x-');
 xlabel('Number of threads');
 ylabel('Running time');
@@ -22,9 +22,9 @@ hold off
 %%
 figure;
 hold on
-plot([0 cgParallel.data(1:7,2)'],timeseq./[timeseq cgParallel.data(1:7,3)'],'x-');
-plot([0 cgParallel.data(8:14,2)'],timeseq./[timeseq cgParallel.data(8:14,3)'],'x-');
-plot([0 cgParallel.data(15:21,2)'],timeseq./[timeseq cgParallel.data(15:21,3)'],'x-');
+plot([0 cgParallel.data(1:6,2)'],timeseq./[timeseq cgParallel.data(1:6,3)'],'x-');
+plot([0 cgParallel.data(7:12,2)'],timeseq./[timeseq cgParallel.data(7:12,3)'],'x-');
+plot([0 cgParallel.data(13:18,2)'],timeseq./[timeseq cgParallel.data(13:18,3)'],'x-');
 %plot([0 cgParallel.data(22:28,2)'],timeseq./[timeseq cgParallel.data(22:28,3)'],'x-');
 xlabel('Number of threads');
 ylabel('Speedup');

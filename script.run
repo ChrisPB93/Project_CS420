@@ -1,0 +1,38 @@
+#!/bin/bash
+
+iter=1000
+tol=1e-06
+
+echo "======================Conjugate gradient start=============================" >> out_CG.txt
+
+for nodes in 1
+do
+for cores in 1
+do
+for size in 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30
+do
+    echo "Running CG_parallel.exe on $nodes nodes with $cores threads each" >> out_CG.txt
+    export OMP_NUM_THREADS=$cores
+    mpirun -np $nodes ./CG_parallel.exe $sizes ${iter} ${tol} $cores >> out_CG.txt
+done
+done
+done
+
+echo "======================Conjugate gradient finished=============================" >> out_CG.txt
+
+echo "======================LU start=============================" >> out_CG.txt
+
+for nodes in 1
+do
+for cores in 1
+do
+for sizes in 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30
+do
+    echo "Running CG_parallel.exe on $nodes nodes with $cores threads each" >> out_CG.txt
+    export OMP_NUM_THREADS=$cores
+    mpirun -np $nodes ./main.exe $sizes $cores >> out_CG.txt
+done
+done
+done
+
+echo "======================LU finished=============================" >> out_CG.txt
