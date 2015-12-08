@@ -25,10 +25,11 @@ void conjGrad(int n,  double A[][n], double f[n], double x[n], int maxIterations
 	double *x_local;
 	double alpha, beta;
 	double rDot, rDot_local, psDot, psDot_local, rPrevDot, tstart, tend, ttotal;
-	int mbytes;
+	int mbytes, provided;
 
 	omp_set_num_threads(numThreads);
-	MPI_Init(&argc, &argv);
+	//MPI_Init(&argc, &argv);
+	MPI_Init_thread(&argc, &argv, MPI_THREAD_FUNNELED, &provided);
   MPI_Comm_size(MPI_COMM_WORLD, &procs);
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
   m = n/procs;
