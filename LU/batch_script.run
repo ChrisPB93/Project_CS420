@@ -1,0 +1,44 @@
+#!/bin/bash
+#PBS -l walltime=00:20:00
+#PBS -l nodes=4:ppn=24
+#PBS -N final_project
+#PBS -q cs
+#PBS -j oe
+
+# Load MPI module (Enable MPI in user environment) 
+module load mvapich2/2.1rc1-intel-15.0
+
+# Change to the directory from which the batch job was submitted
+cd $PBS_O_WORKDIR
+
+# Create a temporary hostfile to run a sinlge mpi task per node
+uniq ${PBS_NODEFILE} > /tmp/${USER}_NODEFILE
+
+size=64
+
+echo "=========== Start of sequential LU decomposition ==========" >> results.txt
+echo "" >> results.txt
+
+echo "Running sequentialLU.exe for size $size" >> results.txt
+mpirun -np 1 -hostfile /tmp/${USER}_NODEFILE ./sequentialLU.exe $size >> results.txt
+
+echo "" >> results.txt
+echo "=========== End of sequential LU decomposition ============" >> results.txt
+echo "" >> results.txt
+echo "=========== Start of parallel LU decomposition ============" >> results.txt
+echo "" >> results.txt
+
+for nodes in 1 2 4
+do
+	for cores in 1 2 4 8 12 16 20 24
+	do
+	    echo "Running parallelLU.exe for size $size on $nodes nodes and $cores cores" >> results.txt
+        export OMP_NUM_THREADS=$cores
+	    mpirun -np $nodes -hostfile /tmp/${USER}_NODEFILE ./parallelLU.exe $size $cores >> results.txt
+	    echo "" >> results.txt
+	done
+done
+
+echo "=========== End of parallel LU decomposition ==============" >> results.txt
+echo ""
+

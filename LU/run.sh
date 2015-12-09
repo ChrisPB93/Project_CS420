@@ -17,9 +17,9 @@ echo "" >> results.txt
 echo "=========== Start of parallel LU decomposition ============" >> results.txt
 echo "" >> results.txt
 
-for nodes in 1 2 4 
+for nodes in 1 2 4 8
 do
-	for cores in 1 2 4 
+	for cores in 1
 	do
 	    echo "Running parallelLU.exe for size $size on $nodes nodes and $cores cores" >> results.txt
 	    mpirun -np $nodes ./parallelLU.exe $size $cores >> results.txt

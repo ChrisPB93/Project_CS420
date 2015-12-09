@@ -7,9 +7,22 @@
 #include "test.h"
 #include "timer.h"
 
-void LU(int n, double A[n][n], double f[n], double u[n], int rank, int size)
+void LU(int n, double A[n][n], double f[n], double u[n], int numThreads, int argc, char **argv)
 {
+    int rank, size, provided;
+
+    omp_set_num_threads(numThreads);
+    //printf("%d\n", omp_get_max_threads());
+    int unused = omp_get_max_threads();
+
+    MPI_Init_thread(&argc, &argv, MPI_THREAD_FUNNELED, &provided);
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
 	MPI_Status status;
+
+    //omp_set_num_threads(numThreads);
+    //printf("%d\n", omp_get_max_threads());
 
 	int columns = n / size;
 	int min = rank * columns;
@@ -79,11 +92,13 @@ void LU(int n, double A[n][n], double f[n], double u[n], int rank, int size)
 
 		u[r] = (u[r] - sum) / A[r][r];
 	}
+
+    MPI_Finalize();
 }
 
 int main(int argc, char *argv[])
 {
-	int rank, size, n, numThreads, N;
+	int rank, size, n, numThreads, N, provided;
 
 	if (argc != 3) {
 		fprintf(stderr, "Wrong number of arguments.\nUsage: %s n numThreads\n", argv[0]);
@@ -93,12 +108,6 @@ int main(int argc, char *argv[])
 	n = atoi(argv[1]); // The number of physical nodes per dimension
 	numThreads = atoi(argv[2]);
 	N = n * n; // The number of matrix elements per dimension
-	
-	omp_set_num_threads(numThreads);
-	
-	MPI_Init(&argc, &argv);
-    MPI_Comm_size(MPI_COMM_WORLD, &size);
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
 	double h = 1.0 / (n + 1);
 
@@ -116,12 +125,10 @@ int main(int argc, char *argv[])
 	createRHS(n, h, f, X, Y);
 
 	// Find the solution
-	if (rank == size - 1) startTimer();
-	LU(N, A, f, u, rank, size);
-	if (rank == size - 1) endTimer();
-	if (rank == size - 1) printTime();
-
-	MPI_Finalize();
+	startTimer();
+	LU(N, A, f, u, numThreads, argc, argv);
+	endTimer();
+	printTime();
 
 	// Check the solution for correctness
 	if (rank == size - 1) {

@@ -1,70 +1,114 @@
 =========== Start of sequential LU decomposition ==========
 
-Running sequentialLU.exe for size 32
-Time = 2.574443102
+Running sequentialLU.exe for size 64
+Time = 102.343615055
 
 =========== End of sequential LU decomposition ============
 
 =========== Start of parallel LU decomposition ============
 
-Running parallelLU.exe for size 32 on 1 nodes and 1 cores
-Time = 5.088191986
+Running parallelLU.exe for size 64 on 1 nodes and 1 cores
+Time = 156.305407047
 
-Running parallelLU.exe for size 32 on 1 nodes and 2 cores
-Time = 2.295391083
+Running parallelLU.exe for size 64 on 1 nodes and 2 cores
+Time = 78.861495972
 
-Running parallelLU.exe for size 32 on 1 nodes and 4 cores
-Time = 1.521884203
+Running parallelLU.exe for size 64 on 1 nodes and 4 cores
+Time = 40.271094084
 
-Running parallelLU.exe for size 32 on 1 nodes and 8 cores
-Time = 0.705828905
+Running parallelLU.exe for size 64 on 1 nodes and 8 cores
+Time = 22.459112883
 
-Running parallelLU.exe for size 32 on 1 nodes and 16 cores
-Time = 0.882173061
+Running parallelLU.exe for size 64 on 1 nodes and 12 cores
+Time = 16.016083956
 
-Running parallelLU.exe for size 32 on 1 nodes and 24 cores
-Time = 1.314679146
+Running parallelLU.exe for size 64 on 1 nodes and 16 cores
+Time = 13.879941940
 
-Running parallelLU.exe for size 32 on 2 nodes and 1 cores
-Time = 3.017037868
+Running parallelLU.exe for size 64 on 1 nodes and 20 cores
+Time = 12.513286829
 
-Running parallelLU.exe for size 32 on 2 nodes and 2 cores
-Time = 1.715708971
+Running parallelLU.exe for size 64 on 1 nodes and 24 cores
+Time = 13.234433889
 
-Running parallelLU.exe for size 32 on 2 nodes and 4 cores
-Time = 0.984136820
+Running parallelLU.exe for size 64 on 2 nodes and 1 cores
+Time = 78.480522156
+Time = 78.291894913
 
-Running parallelLU.exe for size 32 on 2 nodes and 8 cores
-Time = 1.139550924
+Running parallelLU.exe for size 64 on 2 nodes and 2 cores
+Time = 40.402867079
+Time = 40.179239988
 
-Running parallelLU.exe for size 32 on 2 nodes and 16 cores
-Time = 45.437695980
+Running parallelLU.exe for size 64 on 2 nodes and 4 cores
+Time = 20.806818008
+Time = 21.640205145
 
-Running parallelLU.exe for size 32 on 2 nodes and 24 cores
+Running parallelLU.exe for size 64 on 2 nodes and 8 cores
+Time = 11.928104162
+Time = 11.728640079
 
-Running parallelLU.exe for size 32 on 4 nodes and 1 cores
+Running parallelLU.exe for size 64 on 2 nodes and 12 cores
+Time = 8.204169035
+Time = 8.389877081
 
-Running parallelLU.exe for size 32 on 4 nodes and 2 cores
+Running parallelLU.exe for size 64 on 2 nodes and 16 cores
+Time = 9.942799091
+Time = 7.204006910
 
-Running parallelLU.exe for size 32 on 4 nodes and 4 cores
+Running parallelLU.exe for size 64 on 2 nodes and 20 cores
+Time = 6.759651899
+Time = 6.585747957
 
-Running parallelLU.exe for size 32 on 4 nodes and 8 cores
+Running parallelLU.exe for size 64 on 2 nodes and 24 cores
+Time = 12.298850060
+Time = 12.098119020
 
-Running parallelLU.exe for size 32 on 4 nodes and 16 cores
+Running parallelLU.exe for size 64 on 4 nodes and 1 cores
+Time = 40.582769871
+Time = 40.416297197
+Time = 40.365994930
+Time = 40.369886875
 
-Running parallelLU.exe for size 32 on 4 nodes and 24 cores
+Running parallelLU.exe for size 64 on 4 nodes and 2 cores
+Time = 21.169374943
+Time = 23.801844835
+Time = 21.909332991
+Time = 21.910882950
 
-Running parallelLU.exe for size 32 on 8 nodes and 1 cores
+Running parallelLU.exe for size 64 on 4 nodes and 4 cores
+Time = 11.397504807
+Time = 11.374827147
+Time = 11.617285967
+Time = 11.416074991
 
-Running parallelLU.exe for size 32 on 8 nodes and 2 cores
+Running parallelLU.exe for size 64 on 4 nodes and 8 cores
+Time = 6.385571957
+Time = 6.204612970
+Time = 6.191548109
+Time = 6.219065905
 
-Running parallelLU.exe for size 32 on 8 nodes and 4 cores
+Running parallelLU.exe for size 64 on 4 nodes and 12 cores
+Time = 9.363941908
+Time = 7.451434851
+Time = 4.653024912
+Time = 7.425448179
 
-Running parallelLU.exe for size 32 on 8 nodes and 8 cores
+Running parallelLU.exe for size 64 on 4 nodes and 16 cores
+Time = 4.260653973
+Time = 4.072815895
+Time = 4.101824045
+Time = 4.095168114
 
-Running parallelLU.exe for size 32 on 8 nodes and 16 cores
+Running parallelLU.exe for size 64 on 4 nodes and 20 cores
+Time = 3.943374157
+Time = 3.746302128
+Time = 3.756783009
+Time = 3.765233994
 
-Running parallelLU.exe for size 32 on 8 nodes and 24 cores
-8 total processes killed (some possibly by mpirun during cleanup)
+Running parallelLU.exe for size 64 on 4 nodes and 24 cores
+Time = 6.569746971
+Time = 6.595080853
+Time = 6.791862965
+Time = 6.605554819
 
 =========== End of parallel LU decomposition ==============

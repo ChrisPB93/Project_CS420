@@ -1,10 +1,10 @@
 filesSeq = sequentialLU.c test.c timer.c
 filesPar = parallelLU.c test.c timer.c
 
-cc = gcc
-cFlags = -O0 -std=c99
-mpi = mpicc
-mpiFlags = -O0 -std=c99 -fopenmp
+cc = mpiicc
+cFlags = -O0 -g -std=c99
+mpi = mpiicc
+mpiFlags = -O0 -g -std=c99 -qopenmp
 
 all: sequentialLU parallelLU
 
