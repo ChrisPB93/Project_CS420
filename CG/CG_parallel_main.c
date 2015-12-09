@@ -1,14 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
-#include "LU.h"
+#include <omp.h>
+#include <mpi.h>
+#include <sys/time.h>
 #include "testcase.h"
+#include "CG_parallel.h"
 
-int main(int argc, char const *argv[])
+int main(int argc, char *argv[])
 {
 	// Specify size
 	int n = atoi(argv[1]);
+	int maxIterations = atoi(argv[2]);
+	double tolerance = atof(argv[3]);
+	int numThreads = atoi(argv[4]);
 	int N = n + 1;
 	double h = 1.0 / N;
 
@@ -25,11 +30,7 @@ int main(int argc, char const *argv[])
 	createRHS(n, h, f, X, Y);
 
 	//Solve equations by LU-decomposition
-	LUSequential(n * n, A, f, x);
-
-	// Display the result
-	printf("x = \n");
-	printVector(n * n, x);
+	conjGrad(n * n, A, f, x, maxIterations,tolerance, numThreads, argc, argv);
 
 	// Free memory
 	free(A);

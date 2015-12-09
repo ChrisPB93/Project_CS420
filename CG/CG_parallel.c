@@ -28,7 +28,6 @@ void conjGrad(int n,  double A[][n], double f[n], double x[n], int maxIterations
 	int mbytes, provided;
 
 	omp_set_num_threads(numThreads);
-	//MPI_Init(&argc, &argv);
 	MPI_Init_thread(&argc, &argv, MPI_THREAD_FUNNELED, &provided);
   MPI_Comm_size(MPI_COMM_WORLD, &procs);
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -65,7 +64,7 @@ void conjGrad(int n,  double A[][n], double f[n], double x[n], int maxIterations
 		matrixVectorMult(m, n, A_local, p_gather, s);
 		psDot_local = dotProduct(m, p, s);
 		MPI_Allreduce(&psDot_local, &psDot, 1, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
-		alpha = rDot / psDot; //dotp
+		alpha = rDot / psDot;
 		vectorAdd(m, alpha, x_local, p, x_local);	
 		vectorAdd(m, -alpha, r, s, r);
 		rDot_local = dotProduct(m,r,r);
