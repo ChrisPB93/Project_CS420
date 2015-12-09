@@ -4,7 +4,7 @@
 #include <omp.h>
 #include <mpi.h>
 #include <sys/time.h>
-#include "testcase.h"
+#include "test.h"
 #include "CG_parallel.h"
 
 int main(int argc, char *argv[])

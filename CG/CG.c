@@ -3,9 +3,9 @@
 #include <math.h>
 #include <string.h>
 #include <sys/time.h>
-#include </usr/local/Cellar/gcc/5.2.0/lib/gcc/5/gcc/x86_64-apple-darwin15.0.0/5.2.0/include/omp.h>
+#include <omp.h>
 #include "CG.h"
-#include "testcase.h"
+#include "test.h"
 
 struct timeval tv;
 double get_clock() {

@@ -6,7 +6,7 @@
 #include <sys/time.h>
 #include <omp.h>
 #include "CG_parallel.h"
-#include "testcase.h"
+#include "test.h"
 
 struct timeval tv;
 double get_clock() {

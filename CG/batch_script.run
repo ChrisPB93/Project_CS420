@@ -1,6 +1,6 @@
 #!/bin/bash
 #PBS -l walltime=00:20:00
-#PBS -l nodes=8:ppn=12
+#PBS -l nodes=4:ppn=12
 #PBS -N final_project
 #PBS -q cs
 #PBS -j oe
@@ -22,7 +22,7 @@ echo "======================Conjugate gradient start============================
 echo "Running CG_seq.exe" >> out_CG.txt
 ./CG_seq.exe ${size} ${iter} ${tol} >> out_CG.txt
 
-for nodes in 1 2 4 8
+for nodes in 1 2 4
 do
 for cores in 1 2 4 8 16 24
 do

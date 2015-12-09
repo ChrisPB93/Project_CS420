@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "testcase.h"
+#include "test.h"
 #include "CG.h"
 
 int main(int argc, char const *argv[])
@@ -28,17 +28,6 @@ int main(int argc, char const *argv[])
 	//Solve equations by LU-decomposition
 	conjGrad(n * n, A, f, x, maxIterations,tolerance);
 
-	// Display the test case
-	// printf("X = \n");
-	// printMatrix(n, X);
-	// printf("Y = \n");
-	// printMatrix(n, Y);
-	// printf("A = \n");
-	// printMatrix(n * n, A);
-	// printf("f = \n");
-	// printVector(n * n, f);
-	// printf("x = \n");
-	// printVector(n * n, x);
 
 	// Free memory
 	free(A);
